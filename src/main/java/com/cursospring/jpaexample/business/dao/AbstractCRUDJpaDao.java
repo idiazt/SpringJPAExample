@@ -22,8 +22,15 @@ public abstract class AbstractCRUDJpaDao<T extends Serializable> implements IAbs
 		this.clazz = clazzToSet;
 	}
 
+	@Override
 	public T getById(long id) {
 		return entityManager.find(clazz, id);
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<T> getAll() {
+		return entityManager.createQuery("from " + clazz.getName()).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -25,9 +25,9 @@ public class RolCRUDTest {
 	@Rollback
 	public void testCRUDRol() {
 		Rol rol = new Rol();
-		rol.setDescripcion("ROL_ADMINISTRADOR");
+		rol.setDescripcion("ROL_USUARIO");
 		rolDAO.save(rol);
-		Assert.assertEquals(rolDAO.count(), 1);
+		Assert.assertEquals(rolDAO.count(), 2);
 		Assert.assertEquals(rolDAO.findAll().iterator().next().getDescripcion(), "ROL_ADMINISTRADOR");
 	}
 

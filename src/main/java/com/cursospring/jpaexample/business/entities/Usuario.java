@@ -2,6 +2,8 @@ package com.cursospring.jpaexample.business.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 
@@ -22,7 +24,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-many association to Rol
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(
 		name="usuario_rol"
 		, joinColumns={
@@ -32,7 +34,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 			@JoinColumn(name="rol_id")
 			}
 		)
-	private Set<Rol> rols;
+	private Set<Rol> rols = new LinkedHashSet<Rol>();
 
 	public Usuario() {
 	}
