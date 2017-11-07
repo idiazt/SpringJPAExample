@@ -20,8 +20,7 @@ public class Rol extends AbstractEntity implements Serializable {
 
 	private String descripcion;
 
-	//bi-directional many-to-many association to Usuario
-	@ManyToMany(mappedBy="rols")
+	@ManyToMany(mappedBy="roles")
 	private Set<Usuario> usuarios;
 
 	public Rol() {

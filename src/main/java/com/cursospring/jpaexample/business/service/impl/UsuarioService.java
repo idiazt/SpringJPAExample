@@ -65,7 +65,7 @@ public class UsuarioService implements IUsuarioService{
 					rol = rolDAO.getById(rolDTO.getId());
 				else rol = new Rol();
 				rol.setDescripcion(rolDTO.getDescripcion());
-				usuario.getRols().add(rol);
+				usuario.getRoles().add(rol);
 			}
 		}
 		return usuario;
@@ -75,7 +75,7 @@ public class UsuarioService implements IUsuarioService{
 		UsuarioDTO dto = new UsuarioDTO();
 		dto.setId(usuario.getId());
 		dto.setNombre(usuario.getNombre());
-		for (Rol rol : usuario.getRols()) {
+		for (Rol rol : usuario.getRoles()) {
 			RolDTO rDTO = new RolDTO();
 			rDTO.setId(rol.getId());
 			rDTO.setDescripcion(rol.getDescripcion());

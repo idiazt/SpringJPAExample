@@ -23,7 +23,6 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-many association to Rol
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(
 		name="usuario_rol"
@@ -34,7 +33,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 			@JoinColumn(name="rol_id")
 			}
 		)
-	private Set<Rol> rols = new LinkedHashSet<Rol>();
+	private Set<Rol> roles = new LinkedHashSet<Rol>();
 
 	public Usuario() {
 	}
@@ -55,12 +54,12 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Set<Rol> getRols() {
-		return this.rols;
+	public Set<Rol> getRoles() {
+		return this.roles;
 	}
 
-	public void setRols(Set<Rol> rols) {
-		this.rols = rols;
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
 	}
 
 }
