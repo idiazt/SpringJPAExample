@@ -26,7 +26,7 @@
 		</createTable>
 	</changeSet>
 	
-	<changeSet id="create-table-usuario-rol" author="calvarinhop">
+	<changeSet id="create-table-usuario-rol" author="idiazt">
 		<createTable tableName="usuario_rol">
 			<column name="usuario_id" type="bigint(20)">
 			    <constraints nullable="false" foreignKeyName="usuario_id_nn_ct_us_rol" />
@@ -42,5 +42,108 @@
 		<addForeignKeyConstraint constraintName="rol_id_fk_ct_us_rol"
 			referencedTableName="rol" baseColumnNames="rol_id"
 			baseTableName="usuario_rol" referencedColumnNames="id" />
+	</changeSet>
+	
+	<changeSet id="create-table-operario" author="idiazt">
+		<createTable tableName="operario">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+			    <constraints primaryKey="true" nullable="false" primaryKeyName="id_pk_ct_operario" />
+			</column>
+			<column name="nombre" type="varchar(255)">
+				<constraints nullable="false" foreignKeyName="nombre_nn_ct_operario" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="create-table-departamento" author="idiazt">
+		<createTable tableName="departamento">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+			    <constraints primaryKey="true" nullable="false" primaryKeyName="id_pk_ct_departamento" />
+			</column>
+			<column name="nombre" type="varchar(255)">
+				<constraints nullable="false" foreignKeyName="nombre_nn_ct_departamento" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="create-table-director" author="idiazt">
+		<createTable tableName="director">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+			    <constraints primaryKey="true" nullable="false" primaryKeyName="id_pk_ct_director" />
+			</column>
+			<column name="nombre" type="varchar(255)">
+				<constraints nullable="false" foreignKeyName="nombre_nn_ct_director" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="create-table-area-geografica" author="idiazt">
+		<createTable tableName="area_geografica">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+			    <constraints primaryKey="true" nullable="false" primaryKeyName="id_pk_ct_area_geografica" />
+			</column>
+			<column name="nombre" type="varchar(255)">
+				<constraints nullable="false" foreignKeyName="nombre_nn_ct_area_geografica" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="create-table-area-negocio" author="idiazt">
+		<createTable tableName="area_negocio">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+			    <constraints primaryKey="true" nullable="false" primaryKeyName="id_pk_ct_area_negocio" />
+			</column>
+			<column name="nombre" type="varchar(255)">
+				<constraints nullable="false" foreignKeyName="nombre_nn_ct_area_negocio" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="create-table-oficina" author="idiazt">
+		<createTable tableName="oficina">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+			    <constraints primaryKey="true" nullable="false" primaryKeyName="id_pk_ct_oficina" />
+			</column>
+			<column name="nombre" type="varchar(255)">
+				<constraints nullable="false" foreignKeyName="nombre_nn_ct_oficina" />
+			</column>
+			<column name="area_geografica_id" type="bigint(20)" />
+		</createTable>
+		<addForeignKeyConstraint constraintName="fk_area_oficina" baseColumnNames="area_geografica_id" baseTableName="oficina"
+			referencedColumnNames="id" referencedTableName="area_geografica" />
+	</changeSet>
+	
+	<changeSet id="create-table-area-gestion" author="idiazt">
+		<createTable tableName="area_gestion">
+			<column name="area_geografica_id" type="bigint(20)" />
+			<column name="area_negocio_id" type="bigint(20)" />
+			<column name="director_id" type="bigint(20)" />
+		</createTable>
+		<addForeignKeyConstraint constraintName="fk_areag_areageo" baseColumnNames="area_geografica_id" baseTableName="area_gestion"
+			referencedColumnNames="id" referencedTableName="area_geografica" />
+		<addForeignKeyConstraint constraintName="fk_areag_areaneg" baseColumnNames="area_negocio_id" baseTableName="area_gestion"
+			referencedColumnNames="id" referencedTableName="area_negocio" />
+		<addForeignKeyConstraint constraintName="fk_areag_director" baseColumnNames="director_id" baseTableName="area_gestion"
+			referencedColumnNames="id" referencedTableName="director" />
+		<addPrimaryKey columnNames="area_geografica_id, area_negocio_id, director_id" tableName="area_gestion" />
+	</changeSet>
+	<changeSet id="add-foreign-keys-director-departamento" author="idiazt">
+		<addColumn tableName="departamento">
+			<column name="director_id" type="bigint(20)" />
+		</addColumn>
+		<addColumn tableName="director">
+			<column name="departamento_id" type="bigint(20)" />
+		</addColumn>
+		<addForeignKeyConstraint constraintName="fk_depto_director" baseColumnNames="director_id" baseTableName="departamento"
+			referencedColumnNames="id" referencedTableName="director" />
+		<addForeignKeyConstraint constraintName="fk_director_depto" baseColumnNames="departamento_id" baseTableName="director"
+			referencedColumnNames="id" referencedTableName="departamento" />
+	</changeSet>
+	<changeSet id="add-foreign-keys-operario" author="idiazt">
+		<addColumn tableName="operario">
+			<column name="departamento_id" type="bigint(20)" />
+		</addColumn>
+		<addForeignKeyConstraint constraintName="fk_depto_operario" baseColumnNames="departamento_id" baseTableName="operario"
+			referencedColumnNames="id" referencedTableName="departamento" />
 	</changeSet>
 </databaseChangeLog>
